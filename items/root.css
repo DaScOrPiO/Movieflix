@@ -3,3 +3,12 @@
     --white: #ffffff;
     --black: #000000;
 }
+
+* {
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+html {
+    overflow-x: hidden;
+}
