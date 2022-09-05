@@ -14,148 +14,202 @@
 </head>
 
 <body class="main-container">
+    <!-- overlay class is Active only when pop-window is shown -->
+    <div class="overlay">
+        <header class="header">
+            <nav class="navigation">
+                <ul class="nav-links">
+                    <input type="checkbox" id="checkbox_toggle" />
+                    <label for="checkbox_toggle" class="hamburger">&#9776;</label>
+                    <div class="menu">
+                        <li>
+                            <a href="#" class="logo">Movieflix</a>
+                        </li>
+                        <li>
+                            <a href="/index.html"><i class="bi bi-house-fill"></i>Back To Main Page</a>
+                        </li>
+                        <li class="drop-menu">
+                            <a>Categories<i class="bi bi-caret-down-fill"></i></a>
+                            <ul class="dropdowns wide">
+                                <li><a href="">Action</a></li>
+                                <li><a href="#">Adventure</a></li>
+                                <li><a href="#">Comedy</a></li>
+                                <li><a href="#">Drama</a></li>
+                                <li><a href="#">Fantasy</a></li>
+                                <li><a href="#">Horror</a></li>
+                                <li><a href="#">Musicals</a></li>
+                                <li><a href="#">Mystery</a></li>
+                                <li><a href="#">Romance</a></li>
+                                <li><a href="#">Science Fiction</a></li>
+                                <li><a href="#">Sports</a></li>
+                                <li><a href="#">Triller</a></li>
+                                <li><a href="#">Western</a></li>
+                                <li><a href="#">Documentary</a></li>
+                            </ul>
+                        </li>
+                        <li class="drop-menu">
+                            <a href="#">HollyWood<i class="bi bi-caret-down-fill"></i></a>
+                            <ul class="dropdowns">
+                                <li><a href="">Movie</a></li>
+                                <li><a href="">Series</a></li>
+                            </ul>
+                        </li>
+                        <li class="drop-menu">
+                            <a href="#">Korean<i class="bi bi-caret-down-fill"></i></a>
+                            <ul class="dropdowns">
+                                <li><a href="">K-Drama Series</a></li>
+                                <li><a href="">Movie</a></li>
+                            </ul>
+                        </li>
+                        <li class="drop-menu">
+                            <a href="#">Teluglu<i class="bi bi-caret-down-fill"></i></a>
+                            <ul class="dropdowns">
+                                <li><a href="">Movie</a></li>
+                                <li><a href="">Series</a></li>
+                            </ul>
+                        </li>
+                        <li class="drop-menu">
+                            <a href="#">Chinese<i class="bi bi-caret-down-fill"></i></a>
+                            <ul class="dropdowns">
+                                <li><a href="">Movie</a></li>
+                                <li><a href="">Series</a></li>
+                            </ul>
+                        </li>
+                        <li class="drop-menu">
+                            <a href="#">Turkish<i class="bi bi-caret-down-fill"></i></a>
+                            <ul class="dropdowns">
+                                <li><a href="">Movie</a></li>
+                                <li><a href="">Series</a></li>
+                            </ul>
+                        </li>
+                        <li class="drop-menu">
+                            <a href="#">Spanish<i class="bi bi-caret-down-fill"></i></a>
+                            <ul class="dropdowns">
+                                <li><a href="">Movie</a></li>
+                                <li><a href="">Series</a></li>
+                            </ul>
+                        </li>
+                    </div>
+                    <li class="form-inline nav-search">
+                        <a class="search input-group col-sm-12">
+                            <input type="search" id="form2" class="form-control" placeholder="Search Series">
+                            <button type="button" class="btn btn-primary" id="nav-search-btn">
+                                <i class="bi bi-search"></i>
+                            </button>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
 
-    <header class="header">
-        <nav class="navigation">
-            <ul class="nav-links">
-                <input type="checkbox" id="checkbox_toggle" />
-                <label for="checkbox_toggle" class="hamburger">&#9776;</label>
-                <div class="menu">
-                    <li>
-                        <a href="#" class="logo">Movieflix</a>
-                    </li>
-                    <li>
-                        <a href="/index.html"><i class="bi bi-house-fill"></i>Back To Main Page</a>
-                    </li>
-                    <li class="drop-menu">
-                        <a>Categories<i class="bi bi-caret-down-fill"></i></a>
-                        <ul class="dropdowns wide">
-                            <li><a href="">Action</a></li>
-                            <li><a href="#">Adventure</a></li>
-                            <li><a href="#">Comedy</a></li>
-                            <li><a href="#">Drama</a></li>
-                            <li><a href="#">Fantasy</a></li>
-                            <li><a href="#">Horror</a></li>
-                            <li><a href="#">Musicals</a></li>
-                            <li><a href="#">Mystery</a></li>
-                            <li><a href="#">Romance</a></li>
-                            <li><a href="#">Science Fiction</a></li>
-                            <li><a href="#">Sports</a></li>
-                            <li><a href="#">Triller</a></li>
-                            <li><a href="#">Western</a></li>
-                            <li><a href="#">Documentary</a></li>
-                        </ul>
-                    </li>
-                    <li class="drop-menu">
-                        <a href="#">HollyWood<i class="bi bi-caret-down-fill"></i></a>
-                        <ul class="dropdowns">
-                            <li><a href="">Movie</a></li>
-                            <li><a href="">Series</a></li>
-                        </ul>
-                    </li>
-                    <li class="drop-menu">
-                        <a href="#">Korean<i class="bi bi-caret-down-fill"></i></a>
-                        <ul class="dropdowns">
-                            <li><a href="">K-Drama Series</a></li>
-                            <li><a href="">Movie</a></li>
-                        </ul>
-                    </li>
-                    <li class="drop-menu">
-                        <a href="#">Teluglu<i class="bi bi-caret-down-fill"></i></a>
-                        <ul class="dropdowns">
-                            <li><a href="">Movie</a></li>
-                            <li><a href="">Series</a></li>
-                        </ul>
-                    </li>
-                    <li class="drop-menu">
-                        <a href="#">Chinese<i class="bi bi-caret-down-fill"></i></a>
-                        <ul class="dropdowns">
-                            <li><a href="">Movie</a></li>
-                            <li><a href="">Series</a></li>
-                        </ul>
-                    </li>
-                    <li class="drop-menu">
-                        <a href="#">Turkish<i class="bi bi-caret-down-fill"></i></a>
-                        <ul class="dropdowns">
-                            <li><a href="">Movie</a></li>
-                            <li><a href="">Series</a></li>
-                        </ul>
-                    </li>
-                    <li class="drop-menu">
-                        <a href="#">Spanish<i class="bi bi-caret-down-fill"></i></a>
-                        <ul class="dropdowns">
-                            <li><a href="">Movie</a></li>
-                            <li><a href="">Series</a></li>
-                        </ul>
-                    </li>
+            <section>
+                <div class="slider-container">
+                    <div class="slider slider-animation">
+                        <img src="/images/img-demo.jpg" alt="">
+                    </div>
+                    <div class="slider slider-animation">
+                        <img src="/images/img-demo1.jpg" alt="">
+                    </div>
+                    <div class="slider slider-animation">
+                        <img src="/images/img-demo2.jpg" alt="">
+                    </div>
+                    <div class="slider slider-animation">
+                        <img src="/images/img-demo3.jpg" alt="">
+                    </div>
                 </div>
-                <li class="form-inline nav-search">
-                    <a class="search input-group col-sm-12">
-                        <input type="search" id="form2" class="form-control" placeholder="Search Series">
-                        <button type="button" class="btn btn-primary" id="nav-search-btn">
-                            <i class="bi bi-search"></i>
-                        </button>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+            </section>
+        </header>
 
         <section>
-            <div class="slider-container">
-                <div class="slider slider-animation">
-                    <img src="/images/img-demo.jpg" alt="">
+            <div class="movie-container">
+                <div class="input-group right">
+                    <div class="form-outline">
+                        <input type="search" id="form1" class="form-control" placeholder="Search Movie">
+                    </div>
+                    <button type="button" class="btn btn-primary" id="movies-search-btn">
+                        <i class="bi bi-search"></i>
+                    </button>
                 </div>
-                <div class="slider slider-animation">
-                    <img src="/images/img-demo1.jpg" alt="">
-                </div>
-                <div class="slider slider-animation">
-                    <img src="/images/img-demo2.jpg" alt="">
-                </div>
-                <div class="slider slider-animation">
-                    <img src="/images/img-demo3.jpg" alt="">
+
+                <div class="genral-container">
+                    <div class="movie-img-contaier">
+                        <img src="/images/img-demo1.jpg" alt="">
+                        <div class="ratings"><i class="bi bi-star-fill ratings gold-color">8.1</i></div>
+                        <div class="desc"><a href="">Alchemy Of Souls</a></div>
+                    </div>
+
+                    <div class="movie-img-contaier">
+                        <img src="/images/img-demo.jpg" alt="">
+                        <div class="ratings"><i class="bi bi-star-fill ratings">8.1</i></div>
+                        <div class="desc"><a href="">Power</a></div>
+                    </div>
+
+                    <div class="movie-img-contaier">
+                        <img src="/images/img-demo2.jpg" alt="">
+                        <div class="ratings"><i class="bi bi-star-fill ratings gold-color">8.1</i></div>
+                        <div class="desc"><a href="">P-Valley</a></div>
+                    </div>
+
+                    <div class="movie-img-contaier">
+                        <img src="/images/img-demo3.jpg" alt="">
+                        <div class="ratings"><i class="bi bi-star-fill ratings gold-color">8.1</i></div>
+                        <div class="desc"><a href="">Stranger Things</a></div>
+                    </div>
                 </div>
             </div>
+
+            <section>
+                <div class="pop-up hidden">
+                    <button class="close">&times;</button>
+                    <div class="movie-img-contaier">
+                        <img src="/images/img-demo1.jpg" alt="">
+                        <div class="ratings"><i class="bi bi-star-fill ratings gold-color">8.1</i></div>
+                        <div class="desc"><a href="">Alchemy Of Souls</a></div>
+                    </div>
+
+                    <div class="movie-img-contaier">
+                        <img src="/images/img-demo.jpg" alt="">
+                        <div class="ratings"><i class="bi bi-star-fill ratings">8.1</i></div>
+                        <div class="desc"><a href="">Power</a></div>
+                    </div>
+
+                    <div class="movie-img-contaier">
+                        <img src="/images/img-demo2.jpg" alt="">
+                        <div class="ratings"><i class="bi bi-star-fill ratings gold-color">8.1</i></div>
+                        <div class="desc"><a href="">P-Valley</a></div>
+                    </div>
+
+                    <div class="movie-img-contaier">
+                        <img src="/images/img-demo3.jpg" alt="">
+                        <div class="ratings"><i class="bi bi-star-fill ratings gold-color">8.1</i></div>
+                        <div class="desc"><a href="">Stranger Things</a></div>
+                    </div>
+                    <div class="movie-img-contaier">
+                        <img src="/images/img-demo1.jpg" alt="">
+                        <div class="ratings"><i class="bi bi-star-fill ratings gold-color">8.1</i></div>
+                        <div class="desc"><a href="">Alchemy Of Souls</a></div>
+                    </div>
+
+                    <div class="movie-img-contaier">
+                        <img src="/images/img-demo.jpg" alt="">
+                        <div class="ratings"><i class="bi bi-star-fill ratings">8.1</i></div>
+                        <div class="desc"><a href="">Power</a></div>
+                    </div>
+
+                    <div class="movie-img-contaier">
+                        <img src="/images/img-demo2.jpg" alt="">
+                        <div class="ratings"><i class="bi bi-star-fill ratings gold-color">8.1</i></div>
+                        <div class="desc"><a href="">P-Valley</a></div>
+                    </div>
+
+                    <div class="movie-img-contaier">
+                        <img src="/images/img-demo3.jpg" alt="">
+                        <div class="ratings"><i class="bi bi-star-fill ratings gold-color">8.1</i></div>
+                        <div class="desc"><a href="">Stranger Things</a></div>
+                    </div>
+                </div>
+            </section>
         </section>
-    </header>
-
-    <section>
-        <div class="movie-container">
-            <div class="input-group right">
-                <div class="form-outline">
-                    <input type="search" id="form1" class="form-control" placeholder="Search Movie">
-                </div>
-                <button type="button" class="btn btn-primary" id="movies-search-btn">
-                    <i class="bi bi-search"></i>
-                </button>
-            </div>
-
-            <div class="genral-container">
-                <div class="movie-img-contaier">
-                    <img src="/images/img-demo1.jpg" alt="">
-                    <div class="ratings"><i class="bi bi-star-fill ratings gold-color">8.1</i></div>
-                    <div class="desc"><a href="">Alchemy Of Souls</a></div>
-                </div>
-
-                <div class="movie-img-contaier">
-                    <img src="/images/img-demo.jpg" alt="">
-                    <div class="ratings"><i class="bi bi-star-fill ratings">8.1</i></div>
-                    <div class="desc"><a href="">Power</a></div>
-                </div>
-
-                <div class="movie-img-contaier">
-                    <img src="/images/img-demo2.jpg" alt="">
-                    <div class="ratings"><i class="bi bi-star-fill ratings gold-color">8.1</i></div>
-                    <div class="desc"><a href="">P-Valley</a></div>
-                </div>
-
-                <div class="movie-img-contaier">
-                    <img src="/images/img-demo3.jpg" alt="">
-                    <div class="ratings"><i class="bi bi-star-fill ratings gold-color">8.1</i></div>
-                    <div class="desc"><a href="">Stranger Things</a></div>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
 
     <script src="script.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
