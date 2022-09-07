@@ -23,10 +23,11 @@ li {
 
 .nav-links a {
     color: #000;
+    font-size: 1rem;
 }
 
 .logo {
-    font-size: 2rem;
+    font-size: 1.8rem !important;
 }
 
 .bi-caret-down-fill {
@@ -61,7 +62,7 @@ li {
 
 .dropdowns {
     position: absolute;
-    background-color: #fff;
+    background-color: var(--white);
     padding: 1em 0;
     display: none;
     border-radius: 8px;
@@ -86,7 +87,7 @@ li {
 }
 
 .dropdowns li a {
-    color: #000;
+    color: var(--black);
 }
 
 .dropdowns li:hover {
@@ -111,7 +112,7 @@ input[type=checkbox] {
     .menu {
         display: none;
         position: absolute;
-        background-color: teal;
+        background-color: #ffffffe0;
         right: 0;
         left: 0;
         text-align: center;
@@ -121,7 +122,7 @@ input[type=checkbox] {
 
     .menu li:hover {
         display: inline-block;
-        background-color: #4c9e9e;
+        background-color: darkgray;
         transition: 0.3s ease;
     }
 
@@ -148,7 +149,7 @@ input[type=checkbox] {
     }
 
     .dropdowns li:hover {
-        background-color: #4c9e9e;
+        background-color: var(--black);
     }
 }
 
@@ -156,14 +157,14 @@ input[type=checkbox] {
 
 .header {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     overflow: hidden;
 }
 
 .slider-container {
     width: 95%;
     height: 80%;
-    background-color: black;
+    background-color: var(--black);
     margin: 0 2% 0 2%;
 }
 
@@ -205,7 +206,7 @@ input[type=checkbox] {
     position: relative;
 }
 
-.search-results-container{
+.search-results-container {
     width: 100%;
     position: absolute;
     top: 3rem;
@@ -213,7 +214,7 @@ input[type=checkbox] {
     z-index: 3;
 }
 
-.result-container{
+.result-container {
     width: 100%;
     height: 50%;
     display: flex;
@@ -222,21 +223,21 @@ input[type=checkbox] {
     padding: 2%;
 }
 
-.result-container:last-child{
+.result-container:last-child {
     border-bottom: none;
 }
 
-.img-container{
+.img-container {
     width: 30%;
     height: 100%;
     padding-right: 10px;
 }
 
-.img-container > img{
+.img-container>img {
     width: 100%;
 }
 
-.title-container{
+.title-container {
     width: 70%;
     height: 100%;
     text-align: center;
@@ -298,7 +299,7 @@ input[type=checkbox] {
 
 .pop-up {
     position: absolute;
-    top: 10%;
+    top: 20%;
     left: 10%;
     background-color: #fff;
     width: 80%;
@@ -315,6 +316,7 @@ input[type=checkbox] {
     font-size: 4rem;
     background-color: transparent;
     border: none;
+    z-index: 5;
 }
 
 .close:hover {
@@ -332,3 +334,78 @@ input[type=checkbox] {
     left: 0;
     z-index: 5;
 } */
+
+/* Resposnsiveness For Devices  */
+
+/* Responsiveness for smaller screen Phones */
+
+@media screen and (max-width: 767px) {
+    .main-container {
+        width: 100vw;
+    }
+
+    .header, .navigation, .nav-links, .genral-container {
+        width: 100%;
+    }
+
+    .movie-container {
+        width: 96%;
+    }
+
+    .movie-img-contaier {
+        width: 44%;
+        height: 50%;
+        margin: 2% 2% 4% 0;
+    }
+    .pop-up{
+        top: 15%;
+    }
+}
+
+/* Resonsiveness For smaller screens Ipad */
+
+@media screen and (max-width: 1023px) {
+    .main-container {
+        width: 100vw;
+    }
+
+    .header, .navigation, .nav-links, .genral-container {
+        width: 100%;
+    }
+
+    .movie-container {
+        width: 96%;
+    }
+
+    .movie-img-contaier {
+        width: 44%;
+        height: 50%;
+        margin: 2% 2% 4% 0;
+    }
+}
+
+/* Responsiveness For Pc & larger Screen sizes */
+@media screen and (min-width: 1024px) {
+    .main-container {
+        width: 100vw;
+        min-height: 100vh;
+    }
+
+    .header, .navigation, .nav-links, .genral-container {
+        width: 100%;
+    }
+
+    .movie-container {
+        width: 96%;
+    }
+
+    .navigation {
+        min-height: 35%;
+    }
+
+    .movie-img-contaier {
+        width: 22%;
+        height: 50%;
+        margin: 2% 2% 4% 0;
+    }
+}
