@@ -18,12 +18,35 @@ document.addEventListener('DOMContentLoaded', animation)
 const input = document.querySelector('#form1');
 const movieSearchBtn = document.querySelector('#button1');
 const seriesSearchBtn = document.querySelector('#button2');
+const mainModal = document.querySelector('.modal-container');
+const closebtn = document.querySelectorAll('.close');
+const pageContainer = document.querySelector('.container');
 
-const searchMovies = async () => {
-    movieSearchBtn.addEventListener('click', function () {
-        console.log(input.value);
+const searchMovies = () => {
+    movieSearchBtn.addEventListener('click', async function () {
+        const enteredValue = input.value;
+        let res = await axios.get(`https://api.tvmaze.com/singlesearch/shows?q=${enteredValue}`);
+        let data = res.data;
+        console.log(data);
+
+        const image = document.querySelector('#img');
+        image.src = data.image.original;
+
+        const desc = document.querySelector('.title');
+        desc.innerText = data.name;
+
+        const icon = document.querySelector('.ratings');
+        icon.innerText = data.rating.average;
+
+        const summary = document.querySelector('.summary');
+        summary.innerText = data.summary;
+
+        mainModal.classList.remove('hidden');
     })
-    // let res = await axios.get(`https://api.tvmaze.com/singlesearch/shows?q=girls`);
-    // console.log(res.data);
 }
 movieSearchBtn.addEventListener('click', searchMovies)
+
+//Action to close popup windows
+closebtn.forEach(btn => btn.addEventListener('click', function () {
+    mainModal.classList.add('hidden');
+}))
