@@ -24,24 +24,29 @@ const pageContainer = document.querySelector('.container');
 
 const searchMovies = () => {
     movieSearchBtn.addEventListener('click', async function () {
-        const enteredValue = input.value;
-        let res = await axios.get(`https://api.tvmaze.com/singlesearch/shows?q=${enteredValue}`);
-        let data = res.data;
-        console.log(data);
+        try {
+            const enteredValue = input.value;
+            let res = await axios.get(`https://api.tvmaze.com/singlesearch/shows?q=${enteredValue}`);
+            let data = res.data;
+            console.log(data);
 
-        const image = document.querySelector('#img');
-        image.src = data.image.original;
+            const image = document.querySelector('#img');
+            image.src = data.image.original;
 
-        const desc = document.querySelector('.title');
-        desc.innerText = data.name;
+            const desc = document.querySelector('.title');
+            desc.innerText = data.name;
 
-        const icon = document.querySelector('.ratings');
-        icon.innerText = data.rating.average;
+            const icon = document.querySelector('.ratings');
+            icon.innerText = data.rating.average;
 
-        const summary = document.querySelector('.summary');
-        summary.innerText = data.summary;
+            const summary = document.querySelector('.summary');
+            summary.innerText = data.summary;
 
-        mainModal.classList.remove('hidden');
+            mainModal.classList.remove('hidden');
+        }
+        catch (e) {
+            alert(`Movie was not found in database`)
+        }
     })
 }
 movieSearchBtn.addEventListener('click', searchMovies)
