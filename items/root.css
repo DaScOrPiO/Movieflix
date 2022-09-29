@@ -1,6 +1,7 @@
 :root{
     --icon-color: #ffd700;
     --white: #ffffff;
+    --white-transparent: #ffffff88;
     --black: #000000;
     --general-dark-color: #00000099;
 }
@@ -15,5 +16,5 @@ html {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
