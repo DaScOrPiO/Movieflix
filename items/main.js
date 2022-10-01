@@ -10,67 +10,67 @@ const CurrentlyPlaying = async () => {
 
     looped2(data)
 
-    const getMoreInfo = async (e) => {
+    // const getMoreInfo = async (e) => {
 
-        sliderMovieContainer.classList.remove('hidden');
-        const infoContainer = document.createElement('div');
-        infoContainer.classList.add('movie-info');
-        sliderMovieContainer.appendChild(infoContainer);
-        const videoContainer = document.createElement('div');
-        videoContainer.classList.add('movie-info');
-        infoContainer.appendChild(videoContainer);
-        const title = document.createElement('div');
-        title.classList.add('title');
-        infoContainer.appendChild(title);
-        const p1 = document.createElement('p');
-        title.appendChild(p1);
-        const releaseDate = document.createElement('div');
-        releaseDate.classList.add('release-date');
-        infoContainer.appendChild(releaseDate)
-        const p2 = document.createElement('p');
-        releaseDate.appendChild(p2);
-        const status = document.createElement('div');
-        status.classList.add('title');
-        infoContainer.appendChild(status);
-        const p3 = document.createElement('p');
-        status.appendChild(p3);
-        const genre = document.createElement('div');
-        genre.classList.add('release-date');
-        infoContainer.appendChild(genre);
+    //     sliderMovieContainer.classList.remove('hidden');
+    //     const infoContainer = document.createElement('div');
+    //     infoContainer.classList.add('movie-info');
+    //     sliderMovieContainer.appendChild(infoContainer);
+    //     const videoContainer = document.createElement('div');
+    //     videoContainer.classList.add('movie-info');
+    //     infoContainer.appendChild(videoContainer);
+    //     const title = document.createElement('div');
+    //     title.classList.add('title');
+    //     infoContainer.appendChild(title);
+    //     const p1 = document.createElement('p');
+    //     title.appendChild(p1);
+    //     const releaseDate = document.createElement('div');
+    //     releaseDate.classList.add('release-date');
+    //     infoContainer.appendChild(releaseDate)
+    //     const p2 = document.createElement('p');
+    //     releaseDate.appendChild(p2);
+    //     const status = document.createElement('div');
+    //     status.classList.add('title');
+    //     infoContainer.appendChild(status);
+    //     const p3 = document.createElement('p');
+    //     status.appendChild(p3);
+    //     const genre = document.createElement('div');
+    //     genre.classList.add('release-date');
+    //     infoContainer.appendChild(genre);
 
-        const similarMovies = document.createElement('div');
-        similarMovies.classList.add('similar-movies');
-        sliderMovieContainer.appendChild(similarMovies);
-        const imgContainer = document.createElement('div');
-        imgContainer.classList.add('movie-img');
-        similarMovies.appendChild(imgContainer);
-        const image = document.createElement('img');
-        imgContainer.appendChild(image);
-        const movieDesc = document.createElement('div');
-        movieDesc.classList.add('movie-desc');
-        sliderMovieContainer.appendChild(movieDesc)
-        const showRatings = document.createElement('div');
-        showRatings.classList.add('ratings');
-        movieDesc.appendChild(showRatings)
-        const icon = document.createElement('i');
-        icon.classList.add('bi', 'bi-star-fill', 'ratings', 'gold-color');
-        icon.innerText = '8.2';
-        showRatings.appendChild(icon);
-        const similar_movie_title = document.createElement('div');
-        similar_movie_title.classList.add('movie-title');
-        movieDesc.appendChild(similar_movie_title)
-        const subP = document.createElement('p');
-        similar_movie_title.appendChild(subP)
-        subP.innerText = looped2(data)
-        console.dir(sliderMovieContainer)
-        closeBtn.addEventListener('click', () => {
-            sliderMovieContainer.classList.add('hidden')
-            while (sliderMovieContainer.lastElementChild) {
-                sliderMovieContainer.removeChild(sliderMovieContainer.lastElementChild);
-            }
-            sliderMovieContainer.appendChild(closeBtn)
-        })
-    }
+    //     const similarMovies = document.createElement('div');
+    //     similarMovies.classList.add('similar-movies');
+    //     sliderMovieContainer.appendChild(similarMovies);
+    //     const imgContainer = document.createElement('div');
+    //     imgContainer.classList.add('movie-img');
+    //     similarMovies.appendChild(imgContainer);
+    //     const image = document.createElement('img');
+    //     imgContainer.appendChild(image);
+    //     const movieDesc = document.createElement('div');
+    //     movieDesc.classList.add('movie-desc');
+    //     sliderMovieContainer.appendChild(movieDesc)
+    //     const showRatings = document.createElement('div');
+    //     showRatings.classList.add('ratings');
+    //     movieDesc.appendChild(showRatings)
+    //     const icon = document.createElement('i');
+    //     icon.classList.add('bi', 'bi-star-fill', 'ratings', 'gold-color');
+    //     icon.innerText = '8.2';
+    //     showRatings.appendChild(icon);
+    //     const similar_movie_title = document.createElement('div');
+    //     similar_movie_title.classList.add('movie-title');
+    //     movieDesc.appendChild(similar_movie_title)
+    //     const subP = document.createElement('p');
+    //     similar_movie_title.appendChild(subP)
+    //     subP.innerText = looped2(data)
+    //     console.dir(sliderMovieContainer)
+    //     closeBtn.addEventListener('click', () => {
+    //         sliderMovieContainer.classList.add('hidden')
+    //         while (sliderMovieContainer.lastElementChild) {
+    //             sliderMovieContainer.removeChild(sliderMovieContainer.lastElementChild);
+    //         }
+    //         sliderMovieContainer.appendChild(closeBtn)
+    //     })
+    // }
 
 
     let viewMore = document.querySelector('.more-info');
@@ -94,11 +94,8 @@ const CurrentlyPlaying = async () => {
             for (let i = 0; i < slide.length; i++) {
                 slide[i].style.display = 'none'
             }
-            // slideIndex++ // Bug here
+            slideIndex++ // Bug Here
             slide[slideIndex - 1].style.display = 'flex';
-            viewMore.addEventListener('click', () => {
-                looped2(getMoreInfo(slideIndex))
-            })
             setTimeout(animation, 8000);
         }
     }
@@ -115,23 +112,148 @@ const CurrentlyPlaying = async () => {
 }
 
 
-window.addEventListener('DOMContentLoaded', CurrentlyPlaying)
+window.addEventListener('DOMContentLoaded', CurrentlyPlaying);
 
 const slideContainer = document.querySelector('.slider-container')
 const sliderMovieContainer = document.querySelector('.slider-movie-info');
 const looped2 = (images) => {
-    const view_More_Container = document.createElement('a');
-    view_More_Container.classList.add('more-info');
-    slideContainer.appendChild(view_More_Container);
-    view_More_Container.innerText = 'View More';
     for (let i of images) {
-        console.log(i);
+        // console.log(i);
         const imgContainer = document.createElement('div');
         imgContainer.classList.add('slider', 'slider-animation');
         slideContainer.appendChild(imgContainer);
         const image = document.createElement('img');
         let source = image.src = `https://image.tmdb.org/t/p/original/${i.poster_path}`
         imgContainer.appendChild(image);
+        const view_More_Container = document.createElement('a');
+        view_More_Container.classList.add('more-info');
+        imgContainer.appendChild(view_More_Container);
+        view_More_Container.innerText = 'View More';
+        view_More_Container.addEventListener('click', () => {
+
+            sliderMovieContainer.classList.remove('hidden');
+            const infoContainer = document.createElement('div');
+            infoContainer.classList.add('movie-info');
+            sliderMovieContainer.appendChild(infoContainer);
+            const videoContainer = document.createElement('div');
+            videoContainer.classList.add('video');
+            infoContainer.appendChild(videoContainer);
+            const videoImg = document.createElement('img');
+            videoContainer.appendChild(videoImg);
+            videoImg.src = `https://image.tmdb.org/t/p/w500/${i.poster_path}`;
+            const overview = document.createElement('div');
+            overview.classList.add('overview');
+            const h1 = document.createElement('h1')
+            h1.innerText = 'OVERVIEW';
+            overview.appendChild(h1);
+            const p = document.createElement('p');
+            p.innerText = i.overview;
+            overview.appendChild(p);
+            infoContainer.appendChild(overview);
+            const title = document.createElement('div');
+            title.classList.add('title');
+            infoContainer.appendChild(title);
+            const p1 = document.createElement('p');
+            p1.innerText = `TITLE: ${i.name}`;
+            title.appendChild(p1);
+            const releaseDate = document.createElement('div');
+            releaseDate.classList.add('release-date');
+            infoContainer.appendChild(releaseDate)
+            const p2 = document.createElement('p');
+            p2.innerText = `RELEASE-DATE: ${i.first_air_date}`
+            releaseDate.appendChild(p2);
+            const status = document.createElement('div');
+            status.classList.add('title');
+            infoContainer.appendChild(status);
+            const p3 = document.createElement('p');
+            status.appendChild(p3);
+            const genre = document.createElement('div');
+            genre.classList.add('release-date');
+            let genreId = i.genre_ids;
+            for (let genres of genreId) {
+                if (genreId.length <= 1) genre.innerText = `GENRE: ${genreId}`;
+                genre.innerText = `GENRES: ${genres}`;
+            }
+            infoContainer.appendChild(genre);
+
+            const similar_Movies__generator = async () => {
+                const req = await axios.get(`https://api.themoviedb.org/3/movie/${i.id}/similar?api_key=ea48b075cdabf837d2e5c2ad25476d37`);
+                const data = req.data.results;
+                const h1 = document.createElement('h1');
+                h1.classList.add('h1-div');
+                h1.innerText = 'SIMILAR MOVIES';
+                sliderMovieContainer.appendChild(h1)
+                for (let i of data) {
+                    console.log(i);
+                    const similarMovies = document.createElement('div');
+                    similarMovies.classList.add('similar-movies');
+                    sliderMovieContainer.appendChild(similarMovies);
+                    const imgContainer = document.createElement('div');
+                    imgContainer.classList.add('movie-img');
+                    similarMovies.appendChild(imgContainer);
+                    const image = document.createElement('img');
+                    image.src = `https://image.tmdb.org/t/p/original/${i.poster_path}`
+                    imgContainer.appendChild(image);
+                    const movieDesc = document.createElement('div');
+                    movieDesc.classList.add('movie-desc');
+                    similarMovies.appendChild(movieDesc)
+                    const similar_movie_title = document.createElement('div');
+                    similar_movie_title.classList.add('movie-title');
+                    movieDesc.appendChild(similar_movie_title)
+                    const subP = document.createElement('p');
+                    similar_movie_title.appendChild(subP)
+                    subP.innerText = `TITLE: ${i.title}`;
+                    const showRatings = document.createElement('div');
+                    showRatings.classList.add('ratings');
+                    movieDesc.appendChild(showRatings)
+                    const icon = document.createElement('i');
+                    icon.classList.add('bi', 'bi-star-fill', 'ratings', 'gold-color');
+                    icon.innerText = `RATING: ${i.vote_average}`;
+                    showRatings.appendChild(icon);
+                    const similar_movie_overview = document.createElement('div');
+                    similar_movie_overview.classList.add('movie-desc-overview');
+                    similar_movie_overview.innerText = i.overview;
+                    movieDesc.appendChild(similar_movie_overview);
+                    const releaseDate2 = document.createElement('div');
+                    releaseDate2.classList.add('release-date');
+                    releaseDate2.innerText = `Release-date: ${i.release_date}`;
+                    movieDesc.appendChild(releaseDate2)
+                }
+            }
+            similar_Movies__generator();
+            // const similarMovies = document.createElement('div');
+            // similarMovies.classList.add('similar-movies');
+            // sliderMovieContainer.appendChild(similarMovies);
+            // const imgContainer = document.createElement('div');
+            // imgContainer.classList.add('movie-img');
+            // similarMovies.appendChild(imgContainer);
+            // const image = document.createElement('img');
+            // imgContainer.appendChild(image);
+            // const movieDesc = document.createElement('div');
+            // movieDesc.classList.add('movie-desc');
+            // sliderMovieContainer.appendChild(movieDesc)
+            // const showRatings = document.createElement('div');
+            // showRatings.classList.add('ratings');
+            // movieDesc.appendChild(showRatings)
+            // const icon = document.createElement('i');
+            // icon.classList.add('bi', 'bi-star-fill', 'ratings', 'gold-color');
+            // icon.innerText = '8.2';
+            // showRatings.appendChild(icon);
+            // const similar_movie_title = document.createElement('div');
+            // similar_movie_title.classList.add('movie-title');
+            // movieDesc.appendChild(similar_movie_title)
+            // const subP = document.createElement('p');
+            // similar_movie_title.appendChild(subP)
+            // subP.innerText = i.name;
+            console.dir(sliderMovieContainer)
+            closeBtn.addEventListener('click', () => {
+                sliderMovieContainer.classList.add('hidden')
+                while (sliderMovieContainer.lastElementChild) {
+                    sliderMovieContainer.removeChild(sliderMovieContainer.lastElementChild);
+                }
+                sliderMovieContainer.appendChild(closeBtn)
+            })
+        })
     }
 }
 

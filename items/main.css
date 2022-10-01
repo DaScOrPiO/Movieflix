@@ -246,12 +246,14 @@ input[type=checkbox] {
     box-shadow: 0px 1px 10px 1px var(--black);
     position: relative;
     display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
     transition: all 0.6s;
+    overflow-y: auto;
 }
 
 .movie-info {
     width: 60%;
-    height: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -261,24 +263,41 @@ input[type=checkbox] {
     height: 80%;
 }
 
-.title, .release-date, .status, .genre {
+.video>img{
+    width: 100%;
+    height: 100%;
+}
+
+.overview, .title, .release-date, .status, .genre, .movie-desc-overview {
     width: 100%;
     height: auto;
     color: var(--white);
     background-color: var(--black);
     text-align: center;
+    border: 1px dotted var(--white);
 }
 
 .similar-movies {
-    width: 38%;
-    height: 25%;
+    width: 48%;
     margin-left: 2%;
+    margin-top: 2%;
     display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    flex-wrap: wrap;
+    /* box-shadow: 8px 1px 10px 9px rgba(82, 82, 82, 0.23), 2px 1px 10px 4px darkgray; */
+}
+
+.h1-div{
+    width: 100%;
+    text-align: center;
+    color: var(--black);
 }
 
 .movie-img {
     width: 40%;
     height: 100%;
+    overflow: hidden;
 }
 
 .movie-img>img {
@@ -293,11 +312,26 @@ input[type=checkbox] {
     flex-direction: column;
 }
 
+.movie-desc>.ratings {
+    background-color: var(--black);
+    color: var(--icon-color);
+    text-align: center;
+    border: 1px dotted var(--white);
+}
+
 .movie-title {
     width: 100%;
     height: auto;
     background-color: var(--black);
     color: var(--white);
+    text-align: center;
+}
+
+.movie-desc-overview{
+    font-size: 0.8rem;
+    background-color: var(--black);
+    color: var(--white);
+    word-wrap: break-word;
 }
 
 .slider-animation {
@@ -489,6 +523,14 @@ input[type=checkbox] {
     .more-info {
         font-size: 1rem;
     }
+    .movie-info {
+        width: 100%;
+    }
+    .similar-movies {
+        width: 48%;
+        height: 10%;
+        overflow-y: auto;
+    }
 }
 
 /* Resonsiveness For smaller screens Ipad */
@@ -510,6 +552,16 @@ input[type=checkbox] {
         width: 44%;
         height: 50%;
         margin: 2% 2% 4% 0;
+    }
+
+    .movie-info {
+        width: 100%;
+    }
+
+    .similar-movies {
+        width: 48%;
+        height: 20%;
+        overflow-y: auto;
     }
 }
 
