@@ -366,11 +366,12 @@ input[type=checkbox] {
     top: 3rem;
     background-color: var(--general-dark-color);
     z-index: 3;
+    height: 50vh;
+    overflow-y: auto;
 }
 
 .result-container {
     width: 100%;
-    height: 50%;
     display: flex;
     flex-direction: row;
     border-bottom: 2px solid var(--black);
@@ -395,6 +396,7 @@ input[type=checkbox] {
     width: 70%;
     height: 100%;
     text-align: center;
+    color: var(--white);
 }
 
 .movie-container>.input-group {

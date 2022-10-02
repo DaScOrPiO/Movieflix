@@ -10,69 +10,6 @@ const CurrentlyPlaying = async () => {
 
     looped2(data)
 
-    // const getMoreInfo = async (e) => {
-
-    //     sliderMovieContainer.classList.remove('hidden');
-    //     const infoContainer = document.createElement('div');
-    //     infoContainer.classList.add('movie-info');
-    //     sliderMovieContainer.appendChild(infoContainer);
-    //     const videoContainer = document.createElement('div');
-    //     videoContainer.classList.add('movie-info');
-    //     infoContainer.appendChild(videoContainer);
-    //     const title = document.createElement('div');
-    //     title.classList.add('title');
-    //     infoContainer.appendChild(title);
-    //     const p1 = document.createElement('p');
-    //     title.appendChild(p1);
-    //     const releaseDate = document.createElement('div');
-    //     releaseDate.classList.add('release-date');
-    //     infoContainer.appendChild(releaseDate)
-    //     const p2 = document.createElement('p');
-    //     releaseDate.appendChild(p2);
-    //     const status = document.createElement('div');
-    //     status.classList.add('title');
-    //     infoContainer.appendChild(status);
-    //     const p3 = document.createElement('p');
-    //     status.appendChild(p3);
-    //     const genre = document.createElement('div');
-    //     genre.classList.add('release-date');
-    //     infoContainer.appendChild(genre);
-
-    //     const similarMovies = document.createElement('div');
-    //     similarMovies.classList.add('similar-movies');
-    //     sliderMovieContainer.appendChild(similarMovies);
-    //     const imgContainer = document.createElement('div');
-    //     imgContainer.classList.add('movie-img');
-    //     similarMovies.appendChild(imgContainer);
-    //     const image = document.createElement('img');
-    //     imgContainer.appendChild(image);
-    //     const movieDesc = document.createElement('div');
-    //     movieDesc.classList.add('movie-desc');
-    //     sliderMovieContainer.appendChild(movieDesc)
-    //     const showRatings = document.createElement('div');
-    //     showRatings.classList.add('ratings');
-    //     movieDesc.appendChild(showRatings)
-    //     const icon = document.createElement('i');
-    //     icon.classList.add('bi', 'bi-star-fill', 'ratings', 'gold-color');
-    //     icon.innerText = '8.2';
-    //     showRatings.appendChild(icon);
-    //     const similar_movie_title = document.createElement('div');
-    //     similar_movie_title.classList.add('movie-title');
-    //     movieDesc.appendChild(similar_movie_title)
-    //     const subP = document.createElement('p');
-    //     similar_movie_title.appendChild(subP)
-    //     subP.innerText = looped2(data)
-    //     console.dir(sliderMovieContainer)
-    //     closeBtn.addEventListener('click', () => {
-    //         sliderMovieContainer.classList.add('hidden')
-    //         while (sliderMovieContainer.lastElementChild) {
-    //             sliderMovieContainer.removeChild(sliderMovieContainer.lastElementChild);
-    //         }
-    //         sliderMovieContainer.appendChild(closeBtn)
-    //     })
-    // }
-
-
     let viewMore = document.querySelector('.more-info');
     let slide = document.getElementsByClassName('slider');
     let slideIndex = 1;
@@ -221,31 +158,7 @@ const looped2 = (images) => {
                 }
             }
             similar_Movies__generator();
-            // const similarMovies = document.createElement('div');
-            // similarMovies.classList.add('similar-movies');
-            // sliderMovieContainer.appendChild(similarMovies);
-            // const imgContainer = document.createElement('div');
-            // imgContainer.classList.add('movie-img');
-            // similarMovies.appendChild(imgContainer);
-            // const image = document.createElement('img');
-            // imgContainer.appendChild(image);
-            // const movieDesc = document.createElement('div');
-            // movieDesc.classList.add('movie-desc');
-            // sliderMovieContainer.appendChild(movieDesc)
-            // const showRatings = document.createElement('div');
-            // showRatings.classList.add('ratings');
-            // movieDesc.appendChild(showRatings)
-            // const icon = document.createElement('i');
-            // icon.classList.add('bi', 'bi-star-fill', 'ratings', 'gold-color');
-            // icon.innerText = '8.2';
-            // showRatings.appendChild(icon);
-            // const similar_movie_title = document.createElement('div');
-            // similar_movie_title.classList.add('movie-title');
-            // movieDesc.appendChild(similar_movie_title)
-            // const subP = document.createElement('p');
-            // similar_movie_title.appendChild(subP)
-            // subP.innerText = i.name;
-            console.dir(sliderMovieContainer)
+
             closeBtn.addEventListener('click', () => {
                 sliderMovieContainer.classList.add('hidden')
                 while (sliderMovieContainer.lastElementChild) {
@@ -259,7 +172,6 @@ const looped2 = (images) => {
 
 const topRatedContainer = document.querySelector('.genral-container');
 const viewTopRated = async () => {
-    // let req = await axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=ea48b075cdabf837d2e5c2ad25476d37`);
     const req = await axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=ea48b075cdabf837d2e5c2ad25476d37`);
     const data = req.data.results;
     looped(data)
@@ -287,3 +199,48 @@ const looped = (movie_content) => {
     }
 }
 window.addEventListener('DOMContentLoaded', viewTopRated);
+
+const movieSearchInput = document.querySelector('#form1');
+const movieSearchBtn = document.querySelector('#movies-search-btn');
+const Search_result_container = document.querySelector('.search-results-container');
+const _search_Movie_ = async () => {
+    const Movie_Name = movieSearchInput.value;
+    const req = await axios.get(`https://api.tvmaze.com/search/shows?q=${Movie_Name}`);
+    const data = req.data;
+    console.log(data);
+    looped3(data);
+}
+movieSearchBtn.addEventListener('click', () => {
+    _search_Movie_();
+    movieSearchInput.value = '';
+});
+
+const result = document.querySelector('.right');
+const looped3 = (movie_content) => {
+    for (let i of movie_content) {
+        const results = document.createElement('a');
+        results.classList.add('result-container');
+        Search_result_container.appendChild(results);
+        const resultsImg = document.createElement('div');
+        resultsImg.classList.add('img-container');
+        const image = document.createElement('img');
+        if (i.show.image) {
+            image.src = i.show.image.original;
+        } else {
+            image.alt = 'No photo available';
+        }
+        resultsImg.appendChild(image);
+        results.appendChild(resultsImg);
+        const resultsTitle = document.createElement('div');
+        resultsTitle.classList.add('title-container');
+        resultsTitle.innerText = i.show.name;
+        results.appendChild(resultsTitle);
+    }
+    Search_result_container.classList.remove('hidden');
+}
+document.body.addEventListener('click', () => {
+    while (Search_result_container.lastElementChild) {
+        Search_result_container.removeChild(Search_result_container.lastElementChild);
+    }
+    Search_result_container.classList.add('hidden');
+})
