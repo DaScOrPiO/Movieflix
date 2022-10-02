@@ -121,7 +121,6 @@ const looped2 = (images) => {
                 h1.innerText = 'SIMILAR MOVIES';
                 sliderMovieContainer.appendChild(h1)
                 for (let i of data) {
-                    console.log(i);
                     const similarMovies = document.createElement('div');
                     similarMovies.classList.add('similar-movies');
                     sliderMovieContainer.appendChild(similarMovies);
@@ -205,8 +204,9 @@ const movieSearchBtn = document.querySelector('#movies-search-btn');
 const Search_result_container = document.querySelector('.search-results-container');
 const _search_Movie_ = async () => {
     const Movie_Name = movieSearchInput.value;
-    const req = await axios.get(`https://api.tvmaze.com/search/shows?q=${Movie_Name}`);
-    const data = req.data;
+    const values = {params: {query: Movie_Name}}
+    const req = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=ea48b075cdabf837d2e5c2ad25476d37`, values);
+    const data = req.data.results;
     console.log(data);
     looped3(data);
 }
@@ -217,15 +217,15 @@ movieSearchBtn.addEventListener('click', () => {
 
 const result = document.querySelector('.right');
 const looped3 = (movie_content) => {
-    for (let i of movie_content) {
+    for (let i of movie_content) { // ADD logic to run incase of empty results
         const results = document.createElement('a');
         results.classList.add('result-container');
         Search_result_container.appendChild(results);
         const resultsImg = document.createElement('div');
         resultsImg.classList.add('img-container');
         const image = document.createElement('img');
-        if (i.show.image) {
-            image.src = i.show.image.original;
+        if (i.poster_path) {
+            image.src = `https://image.tmdb.org/t/p/w200/${i.poster_path}`;
         } else {
             image.alt = 'No photo available';
         }
@@ -233,7 +233,7 @@ const looped3 = (movie_content) => {
         results.appendChild(resultsImg);
         const resultsTitle = document.createElement('div');
         resultsTitle.classList.add('title-container');
-        resultsTitle.innerText = i.show.name;
+        resultsTitle.innerText = i.title;
         results.appendChild(resultsTitle);
     }
     Search_result_container.classList.remove('hidden');
@@ -244,3 +244,53 @@ document.body.addEventListener('click', () => {
     }
     Search_result_container.classList.add('hidden');
 })
+
+const seriesSearchBtn = document.querySelector('#nav-search-btn');
+const pop_up_container = document.querySelector('.pop-up');
+const seriesInputField = document.querySelector('#form2');
+const closeBtn2 = document.querySelector('.close1');
+const _Generate_series = async () => {
+    const searchTerm = seriesInputField.value;
+    const value = { params: { query: searchTerm } }
+    const req = await axios.get(`https://api.themoviedb.org/3/search/tv?api_key=ea48b075cdabf837d2e5c2ad25476d37`, value);
+    const data = req.data.results;
+    console.log(data);
+    looped4(data);
+
+    closeBtn2.addEventListener('click', () => {
+        pop_up_container.classList.add('hidden')
+        while (pop_up_container.lastElementChild) {
+            pop_up_container.removeChild(pop_up_container.lastElementChild);
+        }
+        pop_up_container.appendChild(closeBtn2)
+    })
+}
+seriesSearchBtn.addEventListener('click', () => {
+    _Generate_series();
+    seriesInputField.value = '';
+});
+
+const looped4 = (Movie_content) => {
+    for (let i of Movie_content) {
+        const movieContainer = document.createElement('div');
+        movieContainer.classList.add('movie-img-contaier');
+        pop_up_container.appendChild(movieContainer);
+        const containerImg = document.createElement('img');
+        containerImg.src = `https://image.tmdb.org/t/p/original/${i.poster_path}`;
+        movieContainer.appendChild(containerImg);
+        const showRatings = document.createElement('div');
+        showRatings.classList.add('ratings');
+        movieContainer.appendChild(showRatings)
+        const icon = document.createElement('i');
+        icon.classList.add('bi', 'bi-star-fill', 'ratings', 'gold-color');
+        icon.innerText = i.vote_average;
+        showRatings.appendChild(icon);
+        const descriptionContainer = document.createElement('div');
+        descriptionContainer.classList.add('desc');
+        movieContainer.appendChild(descriptionContainer);
+        const link = document.createElement('a');
+        descriptionContainer.appendChild(link);
+        link.innerText = i.name;
+    }
+    pop_up_container.classList.remove('hidden');
+}
