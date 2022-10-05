@@ -4,6 +4,7 @@
 const closeBtn = document.querySelector('.close');
 const show_Next = document.querySelector('.next');
 const show_Prev = document.querySelector('.prev');
+const popContainer = document.querySelector('.modal-container');
 const CurrentlyPlaying = async () => {
     const req = await axios.get(`https://api.themoviedb.org/3/trending/all/day?api_key=ea48b075cdabf837d2e5c2ad25476d37`);
     const data = req.data.results;
@@ -204,7 +205,7 @@ const movieSearchBtn = document.querySelector('#movies-search-btn');
 const Search_result_container = document.querySelector('.search-results-container');
 const _search_Movie_ = async () => {
     const Movie_Name = movieSearchInput.value;
-    const values = {params: {query: Movie_Name}}
+    const values = { params: { query: Movie_Name } }
     const req = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=ea48b075cdabf837d2e5c2ad25476d37`, values);
     const data = req.data.results;
     console.log(data);
@@ -217,6 +218,8 @@ movieSearchBtn.addEventListener('click', () => {
 
 const result = document.querySelector('.right');
 const looped3 = (movie_content) => {
+    const arr = [];
+    let id;
     for (let i of movie_content) { // ADD logic to run incase of empty results
         const results = document.createElement('a');
         results.classList.add('result-container');
@@ -235,9 +238,56 @@ const looped3 = (movie_content) => {
         resultsTitle.classList.add('title-container');
         resultsTitle.innerText = i.title;
         results.appendChild(resultsTitle);
+        id = i.id;
+        arr.push(id);
     }
     Search_result_container.classList.remove('hidden');
+    console.log(arr);
+    const searchIndex = document.querySelectorAll('.result-container');
+    searchIndex.forEach((el, i) => {
+        el.addEventListener('click', async () => {
+            const movieId = arr[i];
+            const req = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=ea48b075cdabf837d2e5c2ad25476d37`);
+            const data = req.data;
+            console.log(data);
+            const closebtn = document.querySelector('.close2');
+            // const popContainer = document.querySelector('.modal-container');
+            const updatePop_container = () => {
+                const image = document.querySelector('.image-container > img');
+                const pageLink = document.querySelector('.homepage > a');
+                const title = document.querySelector('.title');
+                const icon = document.querySelector('#pop-rating');
+                const summary = document.querySelector('.summary');
+                const releaseDate = document.querySelector('.day-released > span');
+
+                image.src = `https://image.tmdb.org/t/p/original/${data.poster_path}`;
+
+                if (data.homepage != '') {
+                    pageLink.innerText = data.homepage;
+                    pageLink.href = data.homepage;
+                } else {
+                    pageLink.innerText = 'N/A';
+                }
+
+                title.innerText = data.original_title;
+
+                icon.innerText = data.vote_average;
+
+                summary.innerText = data.overview;
+
+                releaseDate.innerText = data.release_date;
+
+                popContainer.classList.remove('hidden')
+            }
+            updatePop_container();
+            closebtn.addEventListener('click', () => {
+                popContainer.classList.add('hidden')
+            })
+        })
+    })
 }
+
+
 document.body.addEventListener('click', () => {
     while (Search_result_container.lastElementChild) {
         Search_result_container.removeChild(Search_result_container.lastElementChild);
@@ -271,9 +321,12 @@ seriesSearchBtn.addEventListener('click', () => {
 });
 
 const looped4 = (Movie_content) => {
+    const arr = [];
+    let id;
     for (let i of Movie_content) {
+        console.log(i);
         const movieContainer = document.createElement('div');
-        movieContainer.classList.add('movie-img-contaier');
+        movieContainer.classList.add('movie-img-contaier', 'con');
         pop_up_container.appendChild(movieContainer);
         const containerImg = document.createElement('img');
         containerImg.src = `https://image.tmdb.org/t/p/original/${i.poster_path}`;
@@ -291,6 +344,51 @@ const looped4 = (Movie_content) => {
         const link = document.createElement('a');
         descriptionContainer.appendChild(link);
         link.innerText = i.name;
+        id = i.id;
+        arr.push(id);
     }
     pop_up_container.classList.remove('hidden');
+    console.log(arr);
+    const searchIndex = document.querySelectorAll('.con');
+    searchIndex.forEach((el, i) => {
+        el.addEventListener('click', async () => {
+            const TvId = arr[i];
+            const req = await axios.get(`https://api.themoviedb.org/3/tv/${TvId}?api_key=ea48b075cdabf837d2e5c2ad25476d37`);
+            const data = req.data;
+            console.log(data);
+            const closebtn = document.querySelector('.close2');
+            // const popContainer = document.querySelector('.modal-container');
+            const updatePop = () => {
+                const image = document.querySelector('.image-container > img');
+                const pageLink = document.querySelector('.homepage > a');
+                const title = document.querySelector('.title');
+                const icon = document.querySelector('#pop-rating');
+                const summary = document.querySelector('.summary');
+                const releaseDate = document.querySelector('.day-released > span');
+
+                image.src = `https://image.tmdb.org/t/p/original/${data.poster_path}`;
+
+                if (data.homepage != '') {
+                    pageLink.innerText = data.homepage;
+                    pageLink.href = data.homepage;
+                } else {
+                    pageLink.innerText = 'N/A';
+                }
+
+                title.innerText = data.original_name;
+
+                icon.innerText = data.vote_average;
+
+                summary.innerText = data.overview;
+
+                releaseDate.innerText = data.first_air_date;
+
+                popContainer.classList.remove('hidden')
+            }
+            updatePop();
+            closebtn.addEventListener('click', () => {
+                popContainer.classList.add('hidden')
+            })
+        })
+    })
 }
