@@ -1,0 +1,20 @@
+:root{
+    --icon-color: #ffd700;
+    --white: #ffffff;
+    --white-transparent: #ffffff88;
+    --black: #000000;
+    --general-dark-color: #00000099;
+}
+
+* {
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+html {
+    overflow-x: hidden;
+}
+
+.hidden {
+    display: none !important;
+}
