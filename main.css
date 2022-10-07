@@ -613,6 +613,8 @@ input[type=checkbox] {
 
     .pop-up {
         top: 15%;
+        left: 2%;
+        width: 100%;
     }
 
     .more-info {
@@ -644,6 +646,12 @@ input[type=checkbox] {
 
     .header, .navigation, .nav-links, .genral-container {
         width: 100%;
+    }
+
+    .pop-up {
+        width: 90%;
+        left: 5%;
+        top: 13%;
     }
 
     .movie-container {

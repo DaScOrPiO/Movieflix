@@ -402,7 +402,11 @@ const looped4 = (Movie_content) => {
         movieContainer.classList.add('movie-img-contaier', 'con');
         pop_up_container.appendChild(movieContainer);
         const containerImg = document.createElement('img');
-        containerImg.src = `https://image.tmdb.org/t/p/original/${i.poster_path}`;
+        if (i.poster_path) {
+            containerImg.src = `https://image.tmdb.org/t/p/original/${i.poster_path}`;
+        } else {
+            containerImg.alt = `can't find image for this movie`
+        }
         movieContainer.appendChild(containerImg);
         const showRatings = document.createElement('div');
         showRatings.classList.add('ratings');
@@ -439,7 +443,12 @@ const looped4 = (Movie_content) => {
                 const summary = document.querySelector('.summary');
                 const releaseDate = document.querySelector('.day-released > span');
 
-                image.src = `https://image.tmdb.org/t/p/original/${data.poster_path}`;
+                if (data.poster_path) {
+                    image.src = `https://image.tmdb.org/t/p/original/${data.poster_path}`;
+                } else {
+                    image.src = '';
+                    image.alt = `No image for this movie`;
+                }
 
                 if (data.homepage != '') {
                     pageLink.innerText = data.homepage;
