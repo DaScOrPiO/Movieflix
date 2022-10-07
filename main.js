@@ -14,6 +14,8 @@ nav.addEventListener('click', () => {
         hamburger.classList.replace('bi-x', 'bi-list');
     }
 })
+
+//Code for Page slider
 const CurrentlyPlaying = async () => {
     const req = await axios.get(`https://api.themoviedb.org/3/trending/all/day?api_key=ea48b075cdabf837d2e5c2ad25476d37`);
     const data = req.data.results;
@@ -32,7 +34,7 @@ const CurrentlyPlaying = async () => {
             slide[i].style.display = 'none'
         }
 
-        slideIndex++ // Bug Here
+        slideIndex++;
 
         if (slideIndex > slide.length) {
             slideIndex = 1;
@@ -45,7 +47,7 @@ const CurrentlyPlaying = async () => {
         timeOut = 2000;
 
         for (let i = 0; i < slide.length; i++) {
-            slide[i].style.display = 'none'
+            slide[i].style.display = 'none';
         }
 
         slideIndex--;
@@ -73,15 +75,12 @@ const CurrentlyPlaying = async () => {
     }
     sliderAuto();
 }
-
-
 window.addEventListener('DOMContentLoaded', CurrentlyPlaying);
 
 const slideContainer = document.querySelector('.slider-container')
 const sliderMovieContainer = document.querySelector('.slider-movie-info');
 const looped2 = (images) => {
     for (let i of images) {
-        // console.log(i);
         const imgContainer = document.createElement('div');
         imgContainer.classList.add('slider', 'slider-animation');
         slideContainer.appendChild(imgContainer);
@@ -194,7 +193,9 @@ const looped2 = (images) => {
         })
     }
 }
+//End of Code-block for page Slider
 
+//Code-block for Trending Movies
 const topRatedContainer = document.querySelector('.genral-container');
 const viewTopRated = async () => {
     const req = await axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=ea48b075cdabf837d2e5c2ad25476d37`);
@@ -270,7 +271,9 @@ const looped = (movie_content) => {
     })
 }
 window.addEventListener('DOMContentLoaded', viewTopRated);
+//End of code-block for trending movies
 
+//Code-block for search movies section on website
 const movieSearchInput = document.querySelector('#form1');
 const movieSearchBtn = document.querySelector('#movies-search-btn');
 const Search_result_container = document.querySelector('.search-results-container');
@@ -313,7 +316,6 @@ const looped3 = (movie_content) => {
         arr.push(id);
     }
     Search_result_container.classList.remove('hidden');
-    console.log(arr);
     const searchIndex = document.querySelectorAll('.result-container');
     searchIndex.forEach((el, i) => {
         el.addEventListener('click', async () => {
@@ -365,7 +367,9 @@ document.body.addEventListener('click', () => {
     }
     Search_result_container.classList.add('hidden');
 })
+//End of code-block for search Movies
 
+//Code-block for search-series on web Navbar section
 const seriesSearchBtn = document.querySelector('#nav-search-btn');
 const pop_up_container = document.querySelector('.pop-up');
 const seriesInputField = document.querySelector('#form2');
@@ -375,7 +379,6 @@ const _Generate_series = async () => {
     const value = { params: { query: searchTerm } }
     const req = await axios.get(`https://api.themoviedb.org/3/search/tv?api_key=ea48b075cdabf837d2e5c2ad25476d37`, value);
     const data = req.data.results;
-    console.log(data);
     looped4(data);
 
     closeBtn2.addEventListener('click', () => {
@@ -395,7 +398,6 @@ const looped4 = (Movie_content) => {
     const arr = [];
     let id;
     for (let i of Movie_content) {
-        console.log(i);
         const movieContainer = document.createElement('div');
         movieContainer.classList.add('movie-img-contaier', 'con');
         pop_up_container.appendChild(movieContainer);
@@ -418,17 +420,17 @@ const looped4 = (Movie_content) => {
         id = i.id;
         arr.push(id);
     }
+
     pop_up_container.classList.remove('hidden');
-    console.log(arr);
     const searchIndex = document.querySelectorAll('.con');
     searchIndex.forEach((el, i) => {
         el.addEventListener('click', async () => {
             const TvId = arr[i];
             const req = await axios.get(`https://api.themoviedb.org/3/tv/${TvId}?api_key=ea48b075cdabf837d2e5c2ad25476d37`);
             const data = req.data;
-            console.log(data);
+
             const closebtn = document.querySelector('.close2');
-            // const popContainer = document.querySelector('.modal-container');
+
             const updatePop = () => {
                 const image = document.querySelector('.image-container > img');
                 const pageLink = document.querySelector('.homepage > a');
@@ -463,63 +465,4 @@ const looped4 = (Movie_content) => {
         })
     })
 }
-
-
-
-// var timeOut = 2000;
-// var slideIndex = 0;
-// var autoOn = true;
-
-// autoSlides();
-
-// function autoSlides() {
-//     timeOut = timeOut - 20;
-
-//     if (autoOn == true && timeOut < 0) {
-//         showSlides();
-//     }
-//     setTimeout(autoSlides, 20);
-// }
-
-// function prevSlide() {
-
-//     timeOut = 2000;
-
-//     var slides = document.getElementsByClassName("mySlides");
-//     var dots = document.getElementsByClassName("dot");
-
-//     for (i = 0; i < slides.length; i++) {
-//         slides[i].style.display = "none";
-//         dots[i].className = dots[i].className.replace(" active", "");
-//     }
-//     slideIndex--;
-
-//     if (slideIndex > slides.length) {
-//         slideIndex = 1
-//     }
-//     if (slideIndex == 0) {
-//         slideIndex = 3
-//     }
-//     slides[slideIndex - 1].style.display = "block";
-//     dots[slideIndex - 1].className += " active";
-// }
-
-// function showSlides() {
-
-//     timeOut = 2000;
-
-//     var slides = document.getElementsByClassName("mySlides");
-//     var dots = document.getElementsByClassName("dot");
-
-//     for (i = 0; i < slides.length; i++) {
-//         slides[i].style.display = "none";
-//         dots[i].className = dots[i].className.replace(" active", "");
-//     }
-//     slideIndex++;
-
-//     if (slideIndex > slides.length) {
-//         slideIndex = 1
-//     }
-//     slides[slideIndex - 1].style.display = "block";
-//     dots[slideIndex - 1].className += " active";
-// }
+//End of code-block for search-series on website 
