@@ -199,7 +199,7 @@ input[type=checkbox] {
     transition: 0.6s ease;
     border-radius: 0 3px 3px 0;
     user-select: none;
-    z-index: 10;
+    z-index: 1;
 }
 
 .next {
@@ -492,6 +492,7 @@ input[type=checkbox] {
 
 .modal-container {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -526,6 +527,7 @@ input[type=checkbox] {
 .modal-content-container>.homepage{
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
     color: var(--white);
     background-color: var(--black);
     justify-content: center;
@@ -612,6 +614,10 @@ input[type=checkbox] {
         height: 10%;
         overflow-y: auto;
     }
+    .modal-container{
+        width: 100% !important;
+        left: -25%;
+    }
 }
 
 /* Resonsiveness For smaller screens Ipad */
@@ -644,6 +650,11 @@ input[type=checkbox] {
         height: 20%;
         overflow-y: auto;
     }
+
+    .modal-container{
+        width: 90%;
+        right: 28%;
+    }
 }
 
 /* Responsiveness For Pc & larger Screen sizes */
@@ -669,5 +680,10 @@ input[type=checkbox] {
         width: 22%;
         height: 50%;
         margin: 2% 2% 4% 0;
+    }
+
+    .modal-container{
+        width: 70%;
+        height: 100%;
     }
 }

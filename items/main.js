@@ -5,48 +5,73 @@ const closeBtn = document.querySelector('.close');
 const show_Next = document.querySelector('.next');
 const show_Prev = document.querySelector('.prev');
 const popContainer = document.querySelector('.modal-container');
+const hamburger = document.querySelector('.hamburger');
+const nav = document.querySelector('.toggle');
+nav.addEventListener('click', () => {
+    if (hamburger.classList.contains('bi-list')) {
+        hamburger.classList.replace('bi-list', 'bi-x');
+    } else {
+        hamburger.classList.replace('bi-x', 'bi-list');
+    }
+})
 const CurrentlyPlaying = async () => {
     const req = await axios.get(`https://api.themoviedb.org/3/trending/all/day?api_key=ea48b075cdabf837d2e5c2ad25476d37`);
     const data = req.data.results;
 
     looped2(data)
 
-    let viewMore = document.querySelector('.more-info');
     let slide = document.getElementsByClassName('slider');
-    let slideIndex = 1;
-    var clickedState = false;
-    const animation = (n) => {
-        var updatedState = () => {
-            clickedState = true;
-            if (clickedState === true) {
-                console.log('Element Clicked!');
-            }
+
+    let slideIndex = 0;
+    let auto = true;
+    let timeOut = 2000;
+    const animation = () => {
+        timeOut = 2000;
+
+        for (let i = 0; i < slide.length; i++) {
+            slide[i].style.display = 'none'
         }
-        if (slide) {
-            if (slideIndex > slide.length || n > slide.length) {
-                slideIndex = 1;
-            }
-            if (n < 1) {
-                slideIndex = slide.length
-            }
-            for (let i = 0; i < slide.length; i++) {
-                slide[i].style.display = 'none'
-            }
-            slideIndex++ // Bug Here
-            slide[slideIndex - 1].style.display = 'flex';
-            setTimeout(animation, 8000);
+
+        slideIndex++ // Bug Here
+
+        if (slideIndex > slide.length) {
+            slideIndex = 1;
         }
+
+        slide[slideIndex - 1].style.display = 'flex';
     }
-    animation(slideIndex);
-    let plusSlides = (n) => {
-        animation(slideIndex += n);
+
+    const prevSlide = () => {
+        timeOut = 2000;
+
+        for (let i = 0; i < slide.length; i++) {
+            slide[i].style.display = 'none'
+        }
+
+        slideIndex--;
+
+        if (slideIndex > slide.length) {
+            slideIndex = 1;
+        }
+
+        if (slideIndex == 0) {
+            slideIndex = slide.length;
+        }
+
+        slide[slideIndex - 1].style.display = 'flex';
     }
-    show_Next.addEventListener('click', () => {
-        plusSlides(1);
-    })
-    show_Prev.addEventListener('click', () => {
-        plusSlides(-1);
-    })
+
+    show_Prev.addEventListener('click', prevSlide);
+    show_Next.addEventListener('click', animation);
+
+    const sliderAuto = () => {
+        timeOut = timeOut - 20;
+        if (auto == true && timeOut < 0) {
+            animation();
+        }
+        setTimeout(sliderAuto, 20);
+    }
+    sliderAuto();
 }
 
 
@@ -178,9 +203,11 @@ const viewTopRated = async () => {
 }
 
 const looped = (movie_content) => {
+    const arr = [];
+    let id;
     for (const i of movie_content) {
         const movieContainer = document.createElement('div');
-        movieContainer.classList.add('movie-img-contaier');
+        movieContainer.classList.add('movie-img-contaier', 'con2');
         topRatedContainer.appendChild(movieContainer);
         const containerImg = document.createElement('img');
         containerImg.src = `https://image.tmdb.org/t/p/w200/${i.poster_path}`;
@@ -196,7 +223,51 @@ const looped = (movie_content) => {
         descriptionContainer.classList.add('desc');
         descriptionContainer.innerText = i.title;
         movieContainer.appendChild(descriptionContainer)
+        id = i.id;
+        arr.push(id);
     }
+    const searchIndex = document.querySelectorAll('.con2');
+    searchIndex.forEach((el, i) => {
+        el.addEventListener('click', async () => {
+            const trending_Movie_Id = arr[i];
+            const req = await axios.get(`https://api.themoviedb.org/3/movie/${trending_Movie_Id}?api_key=ea48b075cdabf837d2e5c2ad25476d37`);
+            const data = req.data;
+            console.log(data);
+            const closebtn = document.querySelector('.close2');
+
+            const updatePop_container = () => {
+                const image = document.querySelector('.image-container > img');
+                const pageLink = document.querySelector('.homepage > a');
+                const title = document.querySelector('.title');
+                const icon = document.querySelector('#pop-rating');
+                const summary = document.querySelector('.summary');
+                const releaseDate = document.querySelector('.day-released > span');
+
+                image.src = `https://image.tmdb.org/t/p/original/${data.poster_path}`;
+
+                if (data.homepage != '') {
+                    pageLink.innerText = data.homepage;
+                    pageLink.href = data.homepage;
+                } else {
+                    pageLink.innerText = 'N/A';
+                }
+
+                title.innerText = data.original_title;
+
+                icon.innerText = data.vote_average;
+
+                summary.innerText = data.overview;
+
+                releaseDate.innerText = data.release_date;
+
+                popContainer.classList.remove('hidden')
+            }
+            updatePop_container();
+            closebtn.addEventListener('click', () => {
+                popContainer.classList.add('hidden')
+            })
+        })
+    })
 }
 window.addEventListener('DOMContentLoaded', viewTopRated);
 
@@ -392,3 +463,63 @@ const looped4 = (Movie_content) => {
         })
     })
 }
+
+
+
+// var timeOut = 2000;
+// var slideIndex = 0;
+// var autoOn = true;
+
+// autoSlides();
+
+// function autoSlides() {
+//     timeOut = timeOut - 20;
+
+//     if (autoOn == true && timeOut < 0) {
+//         showSlides();
+//     }
+//     setTimeout(autoSlides, 20);
+// }
+
+// function prevSlide() {
+
+//     timeOut = 2000;
+
+//     var slides = document.getElementsByClassName("mySlides");
+//     var dots = document.getElementsByClassName("dot");
+
+//     for (i = 0; i < slides.length; i++) {
+//         slides[i].style.display = "none";
+//         dots[i].className = dots[i].className.replace(" active", "");
+//     }
+//     slideIndex--;
+
+//     if (slideIndex > slides.length) {
+//         slideIndex = 1
+//     }
+//     if (slideIndex == 0) {
+//         slideIndex = 3
+//     }
+//     slides[slideIndex - 1].style.display = "block";
+//     dots[slideIndex - 1].className += " active";
+// }
+
+// function showSlides() {
+
+//     timeOut = 2000;
+
+//     var slides = document.getElementsByClassName("mySlides");
+//     var dots = document.getElementsByClassName("dot");
+
+//     for (i = 0; i < slides.length; i++) {
+//         slides[i].style.display = "none";
+//         dots[i].className = dots[i].className.replace(" active", "");
+//     }
+//     slideIndex++;
+
+//     if (slideIndex > slides.length) {
+//         slideIndex = 1
+//     }
+//     slides[slideIndex - 1].style.display = "block";
+//     dots[slideIndex - 1].className += " active";
+// }
