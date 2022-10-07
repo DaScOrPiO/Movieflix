@@ -30,7 +30,7 @@ const searchMovies = async () => {
         mainModal.classList.remove('hidden');
     }
     catch (e) {
-        alert(`Movie was not found in database`);
+        alert(`Movie was not found, visit main page and try again`);
     }
 }
 
