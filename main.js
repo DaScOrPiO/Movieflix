@@ -17,63 +17,68 @@ nav.addEventListener('click', () => {
 
 //Code for Page slider
 const CurrentlyPlaying = async () => {
-    const req = await axios.get(`https://api.themoviedb.org/3/trending/all/day?api_key=ea48b075cdabf837d2e5c2ad25476d37`);
-    const data = req.data.results;
+    try {
+        const req = await axios.get(`https://api.themoviedb.org/3/trending/all/day?api_key=ea48b075cdabf837d2e5c2ad25476d37`);
+        const data = req.data.results;
 
-    looped2(data)
+        looped2(data)
 
-    let slide = document.getElementsByClassName('slider');
+        let slide = document.getElementsByClassName('slider');
 
-    let slideIndex = 0;
-    let auto = true;
-    let timeOut = 2000;
-    const animation = () => {
-        timeOut = 2000;
+        let slideIndex = 0;
+        let auto = true;
+        let timeOut = 2000;
+        const animation = () => {
+            timeOut = 2000;
 
-        for (let i = 0; i < slide.length; i++) {
-            slide[i].style.display = 'none'
+            for (let i = 0; i < slide.length; i++) {
+                slide[i].style.display = 'none'
+            }
+
+            slideIndex++;
+
+            if (slideIndex > slide.length) {
+                slideIndex = 1;
+            }
+
+            slide[slideIndex - 1].style.display = 'flex';
         }
 
-        slideIndex++;
+        const prevSlide = () => {
+            timeOut = 2000;
 
-        if (slideIndex > slide.length) {
-            slideIndex = 1;
+            for (let i = 0; i < slide.length; i++) {
+                slide[i].style.display = 'none';
+            }
+
+            slideIndex--;
+
+            if (slideIndex > slide.length) {
+                slideIndex = 1;
+            }
+
+            if (slideIndex == 0) {
+                slideIndex = slide.length;
+            }
+
+            slide[slideIndex - 1].style.display = 'flex';
         }
 
-        slide[slideIndex - 1].style.display = 'flex';
+        show_Prev.addEventListener('click', prevSlide);
+        show_Next.addEventListener('click', animation);
+
+        const sliderAuto = () => {
+            timeOut = timeOut - 20;
+            if (auto == true && timeOut < 0) {
+                animation();
+            }
+            setTimeout(sliderAuto, 20);
+        }
+        sliderAuto();
     }
-
-    const prevSlide = () => {
-        timeOut = 2000;
-
-        for (let i = 0; i < slide.length; i++) {
-            slide[i].style.display = 'none';
-        }
-
-        slideIndex--;
-
-        if (slideIndex > slide.length) {
-            slideIndex = 1;
-        }
-
-        if (slideIndex == 0) {
-            slideIndex = slide.length;
-        }
-
-        slide[slideIndex - 1].style.display = 'flex';
+    catch {
+        alert('Network ERROR! Page not fully loaded!')
     }
-
-    show_Prev.addEventListener('click', prevSlide);
-    show_Next.addEventListener('click', animation);
-
-    const sliderAuto = () => {
-        timeOut = timeOut - 20;
-        if (auto == true && timeOut < 0) {
-            animation();
-        }
-        setTimeout(sliderAuto, 20);
-    }
-    sliderAuto();
 }
 window.addEventListener('DOMContentLoaded', CurrentlyPlaying);
 
@@ -139,99 +144,109 @@ const looped2 = (images) => {
             infoContainer.appendChild(genre);
 
             const similar_Movies__generator = async () => {
-                const req = await axios.get(`https://api.themoviedb.org/3/movie/${i.id}/similar?api_key=ea48b075cdabf837d2e5c2ad25476d37`);
-                const data = req.data.results;
-                const h1 = document.createElement('h1');
-                h1.classList.add('h1-div');
-                h1.innerText = 'SIMILAR MOVIES';
-                sliderMovieContainer.appendChild(h1);
-                const arr_similar = [];
-                let id_similar;
-                for (let i of data) {
-                    id_similar = i.id;
-                    arr_similar.push(id_similar);
-                    const similarMovies = document.createElement('div');
-                    similarMovies.classList.add('similar-movies');
-                    sliderMovieContainer.appendChild(similarMovies);
-                    const imgContainer = document.createElement('div');
-                    imgContainer.classList.add('movie-img');
-                    similarMovies.appendChild(imgContainer);
-                    const image = document.createElement('img');
-                    image.src = `https://image.tmdb.org/t/p/original/${i.poster_path}`
-                    imgContainer.appendChild(image);
-                    const movieDesc = document.createElement('div');
-                    movieDesc.classList.add('movie-desc');
-                    similarMovies.appendChild(movieDesc)
-                    const similar_movie_title = document.createElement('div');
-                    similar_movie_title.classList.add('movie-title');
-                    movieDesc.appendChild(similar_movie_title)
-                    const subP = document.createElement('p');
-                    similar_movie_title.appendChild(subP)
-                    subP.innerText = `TITLE: ${i.title}`;
-                    const showRatings = document.createElement('div');
-                    showRatings.classList.add('ratings');
-                    movieDesc.appendChild(showRatings)
-                    const icon = document.createElement('i');
-                    icon.classList.add('bi', 'bi-star-fill', 'ratings', 'gold-color');
-                    icon.innerText = `RATING: ${i.vote_average}`;
-                    showRatings.appendChild(icon);
-                    const similar_movie_overview = document.createElement('div');
-                    similar_movie_overview.classList.add('movie-desc-overview');
-                    similar_movie_overview.innerText = i.overview;
-                    movieDesc.appendChild(similar_movie_overview);
-                    const releaseDate2 = document.createElement('div');
-                    releaseDate2.classList.add('release-date');
-                    releaseDate2.innerText = `Release-date: ${i.release_date}`;
-                    movieDesc.appendChild(releaseDate2)
-                }
+                try {
+                    const req = await axios.get(`https://api.themoviedb.org/3/movie/${i.id}/similar?api_key=ea48b075cdabf837d2e5c2ad25476d37`);
+                    const data = req.data.results;
+                    const h1 = document.createElement('h1');
+                    h1.classList.add('h1-div');
+                    h1.innerText = 'SIMILAR MOVIES';
+                    sliderMovieContainer.appendChild(h1);
+                    const arr_similar = [];
+                    let id_similar;
+                    for (let i of data) {
+                        id_similar = i.id;
+                        arr_similar.push(id_similar);
+                        const similarMovies = document.createElement('div');
+                        similarMovies.classList.add('similar-movies');
+                        sliderMovieContainer.appendChild(similarMovies);
+                        const imgContainer = document.createElement('div');
+                        imgContainer.classList.add('movie-img');
+                        similarMovies.appendChild(imgContainer);
+                        const image = document.createElement('img');
+                        image.src = `https://image.tmdb.org/t/p/original/${i.poster_path}`
+                        imgContainer.appendChild(image);
+                        const movieDesc = document.createElement('div');
+                        movieDesc.classList.add('movie-desc');
+                        similarMovies.appendChild(movieDesc)
+                        const similar_movie_title = document.createElement('div');
+                        similar_movie_title.classList.add('movie-title');
+                        movieDesc.appendChild(similar_movie_title)
+                        const subP = document.createElement('p');
+                        similar_movie_title.appendChild(subP)
+                        subP.innerText = `TITLE: ${i.title}`;
+                        const showRatings = document.createElement('div');
+                        showRatings.classList.add('ratings');
+                        movieDesc.appendChild(showRatings)
+                        const icon = document.createElement('i');
+                        icon.classList.add('bi', 'bi-star-fill', 'ratings', 'gold-color');
+                        icon.innerText = `RATING: ${i.vote_average}`;
+                        showRatings.appendChild(icon);
+                        const similar_movie_overview = document.createElement('div');
+                        similar_movie_overview.classList.add('movie-desc-overview');
+                        similar_movie_overview.innerText = i.overview;
+                        movieDesc.appendChild(similar_movie_overview);
+                        const releaseDate2 = document.createElement('div');
+                        releaseDate2.classList.add('release-date');
+                        releaseDate2.innerText = `Release-date: ${i.release_date}`;
+                        movieDesc.appendChild(releaseDate2)
+                    }
 
-                const index = document.querySelectorAll('.similar-movies');
-                index.forEach((el, i) => {
-                    el.addEventListener('click', async () => {
-                        console.log(arr_similar[i]);
-                        const simila_movie_id = arr_similar[i];
+                    const index = document.querySelectorAll('.similar-movies');
+                    index.forEach((el, i) => {
+                        el.addEventListener('click', async () => {
+                            try {
+                                console.log(arr_similar[i]);
+                                const simila_movie_id = arr_similar[i];
 
-                        const req = await axios.get(`https://api.themoviedb.org/3/movie/${simila_movie_id}?api_key=ea48b075cdabf837d2e5c2ad25476d37`);
-                        const data = req.data;
-                        console.log(data);
-                        const closebtn = document.querySelector('.close2');
+                                const req = await axios.get(`https://api.themoviedb.org/3/movie/${simila_movie_id}?api_key=ea48b075cdabf837d2e5c2ad25476d37`);
+                                const data = req.data;
+                                console.log(data);
+                                const closebtn = document.querySelector('.close2');
 
-                        const updatePop_container = () => {
-                            const image = document.querySelector('.image-container > img');
-                            const pageLink = document.querySelector('.homepage > a');
-                            const title = document.querySelector('.title');
-                            const icon = document.querySelector('#pop-rating');
-                            const summary = document.querySelector('.summary');
-                            const releaseDate = document.querySelector('.day-released > span');
+                                const updatePop_container = () => {
+                                    const image = document.querySelector('.image-container > img');
+                                    const pageLink = document.querySelector('.homepage > a');
+                                    const title = document.querySelector('.title');
+                                    const icon = document.querySelector('#pop-rating');
+                                    const summary = document.querySelector('.summary');
+                                    const releaseDate = document.querySelector('.day-released > span');
 
-                            image.src = `https://image.tmdb.org/t/p/original/${data.poster_path}`;
+                                    image.src = `https://image.tmdb.org/t/p/original/${data.poster_path}`;
 
-                            if (data.homepage != '') {
-                                pageLink.innerText = data.homepage;
-                                pageLink.href = data.homepage;
-                            } else {
-                                pageLink.innerText = 'N/A';
+                                    if (data.homepage != '') {
+                                        pageLink.innerText = data.homepage;
+                                        pageLink.href = data.homepage;
+                                    } else {
+                                        pageLink.innerText = 'N/A';
+                                    }
+
+                                    title.innerText = data.original_title;
+
+                                    icon.innerText = data.vote_average;
+
+                                    summary.innerText = data.overview;
+
+                                    releaseDate.innerText = data.release_date;
+
+                                    popContainer.classList.remove('hidden')
+                                }
+                                updatePop_container();
+                                closebtn.addEventListener('click', () => {
+                                    popContainer.classList.add('hidden');
+                                })
                             }
-
-                            title.innerText = data.original_title;
-
-                            icon.innerText = data.vote_average;
-
-                            summary.innerText = data.overview;
-
-                            releaseDate.innerText = data.release_date;
-
-                            popContainer.classList.remove('hidden')
-                        }
-                        updatePop_container();
-                        closebtn.addEventListener('click', () => {
-                            popContainer.classList.add('hidden');
+                            catch (e) {
+                                alert('No network :) TRY AGAIN!')
+                            }
                         })
                     })
-                })
+                }
+                catch (e) {
+                    alert('Cannot generate Similar movies due to slow network! :)')
+                }
             }
             similar_Movies__generator();
-            
+
             closeBtn.addEventListener('click', () => {
                 sliderMovieContainer.classList.add('hidden')
                 while (sliderMovieContainer.lastElementChild) {
@@ -247,9 +262,14 @@ const looped2 = (images) => {
 //Code-block for Trending Movies
 const topRatedContainer = document.querySelector('.genral-container');
 const viewTopRated = async () => {
-    const req = await axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=ea48b075cdabf837d2e5c2ad25476d37`);
-    const data = req.data.results;
-    looped(data)
+    try {
+        const req = await axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=ea48b075cdabf837d2e5c2ad25476d37`);
+        const data = req.data.results;
+        looped(data);
+    }
+    catch (e) {
+        alert('No internet or slow network :), TRY AGAIN!')
+    }
 }
 
 const looped = (movie_content) => {
@@ -283,50 +303,57 @@ const looped = (movie_content) => {
         })
 
         el.addEventListener('click', async () => {
-            el.classList.add('scale');
-            const trending_Movie_Id = arr[i];
-            const req = await axios.get(`https://api.themoviedb.org/3/movie/${trending_Movie_Id}?api_key=ea48b075cdabf837d2e5c2ad25476d37`);
-            const data = req.data;
-            console.log(data);
-            const closebtn = document.querySelector('.close2');
+            try {
+                el.classList.add('scale');
+                const trending_Movie_Id = arr[i];
+                const req = await axios.get(`https://api.themoviedb.org/3/movie/${trending_Movie_Id}?api_key=ea48b075cdabf837d2e5c2ad25476d37`);
+                const data = req.data;
+                console.log(data);
+                const closebtn = document.querySelector('.close2');
 
-            const updatePop_container = () => {
-                const image = document.querySelector('.image-container > img');
-                const pageLink = document.querySelector('.homepage > a');
-                const title = document.querySelector('.title');
-                const icon = document.querySelector('#pop-rating');
-                const summary = document.querySelector('.summary');
-                const releaseDate = document.querySelector('.day-released > span');
+                const updatePop_container = () => {
+                    const image = document.querySelector('.image-container > img');
+                    const pageLink = document.querySelector('.homepage > a');
+                    const title = document.querySelector('.title');
+                    const icon = document.querySelector('#pop-rating');
+                    const summary = document.querySelector('.summary');
+                    const releaseDate = document.querySelector('.day-released > span');
 
-                image.src = `https://image.tmdb.org/t/p/original/${data.poster_path}`;
+                    image.src = `https://image.tmdb.org/t/p/original/${data.poster_path}`;
 
-                if (data.homepage != '') {
-                    pageLink.innerText = data.homepage;
-                    pageLink.href = data.homepage;
-                } else {
-                    pageLink.innerText = 'N/A';
+                    if (data.homepage != '') {
+                        pageLink.innerText = data.homepage;
+                        pageLink.href = data.homepage;
+                    } else {
+                        pageLink.innerText = 'N/A';
+                    }
+
+                    title.innerText = data.original_title;
+
+                    icon.innerText = data.vote_average;
+
+                    summary.innerText = data.overview;
+
+                    releaseDate.innerText = data.release_date;
+
+                    popContainer.classList.remove('hidden')
                 }
-
-                title.innerText = data.original_title;
-
-                icon.innerText = data.vote_average;
-
-                summary.innerText = data.overview;
-
-                releaseDate.innerText = data.release_date;
-
-                popContainer.classList.remove('hidden')
+                updatePop_container();
+                closebtn.addEventListener('click', () => {
+                    popContainer.classList.add('hidden');
+                })
             }
-            updatePop_container();
-            closebtn.addEventListener('click', () => {
-                popContainer.classList.add('hidden');
-            })
+            catch (e) {
+                alert(`No internet or slow network, TRY AGAIN!`);
+            }
         })
+
 
         el.addEventListener('mouseout', () => {
             el.classList.remove('scale');
         })
     })
+
 }
 window.addEventListener('DOMContentLoaded', viewTopRated);
 //End of code-block for trending movies
@@ -345,7 +372,7 @@ const _search_Movie_ = async () => {
         looped3(data);
     }
     catch (e) {
-        alert('Error Searching movie')
+        alert('No internet or slow network detected :), TRY AGAIN!')
     }
 }
 movieSearchBtn.addEventListener('click', () => {
@@ -384,43 +411,48 @@ const looped3 = (movie_content) => {
         const searchIndex = document.querySelectorAll('.result-container');
         searchIndex.forEach((el, i) => {
             el.addEventListener('click', async () => {
-                const movieId = arr[i];
-                const req = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=ea48b075cdabf837d2e5c2ad25476d37`);
-                const data = req.data;
-                console.log(data);
-                const closebtn = document.querySelector('.close2');
-                // const popContainer = document.querySelector('.modal-container');
-                const updatePop_container = () => {
-                    const image = document.querySelector('.image-container > img');
-                    const pageLink = document.querySelector('.homepage > a');
-                    const title = document.querySelector('.title');
-                    const icon = document.querySelector('#pop-rating');
-                    const summary = document.querySelector('.summary');
-                    const releaseDate = document.querySelector('.day-released > span');
+                try {
+                    const movieId = arr[i];
+                    const req = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=ea48b075cdabf837d2e5c2ad25476d37`);
+                    const data = req.data;
+                    console.log(data);
+                    const closebtn = document.querySelector('.close2');
+                    // const popContainer = document.querySelector('.modal-container');
+                    const updatePop_container = () => {
+                        const image = document.querySelector('.image-container > img');
+                        const pageLink = document.querySelector('.homepage > a');
+                        const title = document.querySelector('.title');
+                        const icon = document.querySelector('#pop-rating');
+                        const summary = document.querySelector('.summary');
+                        const releaseDate = document.querySelector('.day-released > span');
 
-                    image.src = `https://image.tmdb.org/t/p/original/${data.poster_path}`;
+                        image.src = `https://image.tmdb.org/t/p/original/${data.poster_path}`;
 
-                    if (data.homepage != '') {
-                        pageLink.innerText = data.homepage;
-                        pageLink.href = data.homepage;
-                    } else {
-                        pageLink.innerText = 'N/A';
+                        if (data.homepage != '') {
+                            pageLink.innerText = data.homepage;
+                            pageLink.href = data.homepage;
+                        } else {
+                            pageLink.innerText = 'N/A';
+                        }
+
+                        title.innerText = data.original_title;
+
+                        icon.innerText = data.vote_average;
+
+                        summary.innerText = data.overview;
+
+                        releaseDate.innerText = data.release_date;
+
+                        popContainer.classList.remove('hidden')
                     }
-
-                    title.innerText = data.original_title;
-
-                    icon.innerText = data.vote_average;
-
-                    summary.innerText = data.overview;
-
-                    releaseDate.innerText = data.release_date;
-
-                    popContainer.classList.remove('hidden')
+                    updatePop_container();
+                    closebtn.addEventListener('click', () => {
+                        popContainer.classList.add('hidden')
+                    })
                 }
-                updatePop_container();
-                closebtn.addEventListener('click', () => {
-                    popContainer.classList.add('hidden')
-                })
+                catch (e) {
+                    alert('Error! No internet! TRY AGAIN');
+                }
             })
         })
     } else {
@@ -443,19 +475,24 @@ const pop_up_container = document.querySelector('.pop-up');
 const seriesInputField = document.querySelector('#form2');
 const closeBtn2 = document.querySelector('.close1');
 const _Generate_series = async () => {
-    const searchTerm = seriesInputField.value;
-    const value = { params: { query: searchTerm } }
-    const req = await axios.get(`https://api.themoviedb.org/3/search/tv?api_key=ea48b075cdabf837d2e5c2ad25476d37`, value);
-    const data = req.data.results;
-    looped4(data);
+    try {
+        const searchTerm = seriesInputField.value;
+        const value = { params: { query: searchTerm } }
+        const req = await axios.get(`https://api.themoviedb.org/3/search/tv?api_key=ea48b075cdabf837d2e5c2ad25476d37`, value);
+        const data = req.data.results;
+        looped4(data);
 
-    closeBtn2.addEventListener('click', () => {
-        pop_up_container.classList.add('hidden')
-        while (pop_up_container.lastElementChild) {
-            pop_up_container.removeChild(pop_up_container.lastElementChild);
-        }
-        pop_up_container.appendChild(closeBtn2)
-    })
+        closeBtn2.addEventListener('click', () => {
+            pop_up_container.classList.add('hidden')
+            while (pop_up_container.lastElementChild) {
+                pop_up_container.removeChild(pop_up_container.lastElementChild);
+            }
+            pop_up_container.appendChild(closeBtn2)
+        })
+    }
+    catch (e) {
+        alert('Error! No internet! TRY AGAIN!')
+    }
 }
 seriesSearchBtn.addEventListener('click', () => {
     _Generate_series();
@@ -498,48 +535,53 @@ const looped4 = (Movie_content) => {
         const searchIndex = document.querySelectorAll('.con');
         searchIndex.forEach((el, i) => {
             el.addEventListener('click', async () => {
-                const TvId = arr[i];
-                const req = await axios.get(`https://api.themoviedb.org/3/tv/${TvId}?api_key=ea48b075cdabf837d2e5c2ad25476d37`);
-                const data = req.data;
+                try {
+                    const TvId = arr[i];
+                    const req = await axios.get(`https://api.themoviedb.org/3/tv/${TvId}?api_key=ea48b075cdabf837d2e5c2ad25476d37`);
+                    const data = req.data;
 
-                const closebtn = document.querySelector('.close2');
+                    const closebtn = document.querySelector('.close2');
 
-                const updatePop = () => {
-                    const image = document.querySelector('.image-container > img');
-                    const pageLink = document.querySelector('.homepage > a');
-                    const title = document.querySelector('.title');
-                    const icon = document.querySelector('#pop-rating');
-                    const summary = document.querySelector('.summary');
-                    const releaseDate = document.querySelector('.day-released > span');
+                    const updatePop = () => {
+                        const image = document.querySelector('.image-container > img');
+                        const pageLink = document.querySelector('.homepage > a');
+                        const title = document.querySelector('.title');
+                        const icon = document.querySelector('#pop-rating');
+                        const summary = document.querySelector('.summary');
+                        const releaseDate = document.querySelector('.day-released > span');
 
-                    if (data.poster_path) {
-                        image.src = `https://image.tmdb.org/t/p/original/${data.poster_path}`;
-                    } else {
-                        image.src = '';
-                        image.alt = `No image for this movie`;
+                        if (data.poster_path) {
+                            image.src = `https://image.tmdb.org/t/p/original/${data.poster_path}`;
+                        } else {
+                            image.src = '';
+                            image.alt = `No image for this movie`;
+                        }
+
+                        if (data.homepage != '') {
+                            pageLink.innerText = data.homepage;
+                            pageLink.href = data.homepage;
+                        } else {
+                            pageLink.innerText = 'N/A';
+                        }
+
+                        title.innerText = data.original_name;
+
+                        icon.innerText = data.vote_average;
+
+                        summary.innerText = data.overview;
+
+                        releaseDate.innerText = data.first_air_date;
+
+                        popContainer.classList.remove('hidden')
                     }
-
-                    if (data.homepage != '') {
-                        pageLink.innerText = data.homepage;
-                        pageLink.href = data.homepage;
-                    } else {
-                        pageLink.innerText = 'N/A';
-                    }
-
-                    title.innerText = data.original_name;
-
-                    icon.innerText = data.vote_average;
-
-                    summary.innerText = data.overview;
-
-                    releaseDate.innerText = data.first_air_date;
-
-                    popContainer.classList.remove('hidden')
+                    updatePop();
+                    closebtn.addEventListener('click', () => {
+                        popContainer.classList.add('hidden')
+                    })
                 }
-                updatePop();
-                closebtn.addEventListener('click', () => {
-                    popContainer.classList.add('hidden')
-                })
+                catch (e) {
+                    alert(`Error! No internet! TRY AGAIN`)
+                }
             })
         })
     } else {
