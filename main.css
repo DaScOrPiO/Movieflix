@@ -288,6 +288,11 @@ input[type=checkbox] {
     /* box-shadow: 8px 1px 10px 9px rgba(82, 82, 82, 0.23), 2px 1px 10px 4px darkgray; */
 }
 
+.similar-movies:hover {
+    cursor: pointer;
+    box-shadow: 8px 1px 10px 9px rgba(82, 82, 82, 0.23), 2px 1px 10px 4px darkgray;
+}
+
 .h1-div {
     width: 100%;
     text-align: center;
@@ -302,7 +307,7 @@ input[type=checkbox] {
 
 .movie-img>img {
     width: 100%;
-    height: auto;
+    height: 100%;
 }
 
 .movie-desc {
@@ -310,6 +315,7 @@ input[type=checkbox] {
     height: 100%;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .movie-desc>.ratings {
@@ -427,12 +433,21 @@ input[type=checkbox] {
     box-shadow: 8px 1px 10px 9px rgba(82, 82, 82, 0.23), 2px 1px 10px 4px darkgray;
 }
 
+.scale {
+    transform: scale(1.14, 1.28);
+    transition: 0.2s ease 0.3s;
+}
+
 .movie-img-contaier.con {
     height: auto;
 }
 
 .movie-img-contaier:hover {
     box-shadow: 8px 1px 10px 9px rgba(82, 82, 82, 0.23), 2px 1px 10px 4px #0A35A2;
+}
+
+.movie-img-contaier:active {
+    box-shadow: 8px 1px 10px 9px rgba(82, 82, 82, 0.23), 2px 1px 10px 4px rgb(136, 8, 8);
 }
 
 .movie-img-contaier>img {
@@ -569,6 +584,57 @@ input[type=checkbox] {
     justify-content: center;
 }
 
+.foot-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0A35A2;
+    width: 100vw;
+    height: 50vh;
+    /* margin: 0 2%; */
+}
+
+.attribution {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-right: 1px solid var(--white);
+}
+
+.attribution img {
+    width: 50%;
+    margin: 2% 0;
+}
+
+.attribution h3 {
+    font-size: 1.5rem;
+    text-align: center;
+    color: var(--white-transparent);
+}
+
+.links {
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+}
+
+.links a {
+    color: var(--white);
+    padding: 1rem;
+}
+
+.links a:hover{
+    color: var(--white-transparent);
+    transition: 1s ease;
+}
+
 /* .overlay {
     width: 100%;
     height: auto;
@@ -589,7 +655,7 @@ input[type=checkbox] {
         width: 100vw;
     }
 
-    .header, .navigation, .nav-links, .genral-container {
+    .header, .navigation, .nav-links, .genral-container, .foot-container {
         width: 100%;
     }
 
@@ -598,13 +664,13 @@ input[type=checkbox] {
     }
 
     .movie-container {
-        width: 96%;
+        width: 95%;
     }
 
     .movie-img-contaier {
         width: 44%;
         height: 50%;
-        margin: 2% 2% 4% 0;
+        margin: 2% 2% 4% 5%;
     }
 
     .movie-img-contaier.con {
@@ -635,6 +701,28 @@ input[type=checkbox] {
         width: 100% !important;
         left: -25%;
     }
+
+    .foot-container {
+        flex-direction: column-reverse;
+        height: 80vh;
+        font-size: 0.8rem;
+    }
+
+    .foot-container h3 {
+        font-size: 0.8rem;
+    }
+
+    .attribution {
+        width: 100%;
+        border: none;
+        height: 50%;
+    }
+
+    .links {
+        width: 100%;
+        height: 50%;
+    }
+
 }
 
 /* Resonsiveness For smaller screens Ipad */
@@ -644,7 +732,7 @@ input[type=checkbox] {
         width: 100vw;
     }
 
-    .header, .navigation, .nav-links, .genral-container {
+    .header, .navigation, .nav-links, .genral-container, .foot-container {
         width: 100%;
     }
 
@@ -661,7 +749,7 @@ input[type=checkbox] {
     .movie-img-contaier {
         width: 44%;
         height: 50%;
-        margin: 2% 2% 4% 0;
+        margin: 2% 2% 4% 2%;
     }
 
     .movie-img-contaier.con {
@@ -682,6 +770,16 @@ input[type=checkbox] {
         width: 90%;
         right: 28%;
     }
+
+    .attribution{
+        width: 50%;
+        height: 100%;
+    }
+
+    .links{
+        width: 50%;
+        height: 100%;
+    }
 }
 
 /* Responsiveness For Pc & larger Screen sizes */
@@ -691,7 +789,7 @@ input[type=checkbox] {
         min-height: 100vh;
     }
 
-    .header, .navigation, .nav-links, .genral-container {
+    .header, .navigation, .nav-links, .genral-container, .foot-container {
         width: 100%;
     }
 
@@ -715,6 +813,16 @@ input[type=checkbox] {
 
     .modal-container {
         width: 70%;
+        height: 100%;
+    }
+
+    .attribution{
+        width: 50%;
+        height: 100%;
+    }
+
+    .links{
+        width: 50%;
         height: 100%;
     }
 }
